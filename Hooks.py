@@ -1,3 +1,27 @@
+"""
+    I apologize for not commenting this file more, but I will in the future.
+    As of now, it's a very basic port of something I wrote in C#, and it doesn't
+    have all of the features that I want incorporated. Until then I won't really
+    comment much in here.
+
+    Essentially, we can decorate functions by declaring a hooks object.
+
+    EX: 
+    
+    myHooks = Hooks()
+
+    @myHooks.Register("!testcommand")
+    def myFunction(*args, **kwargs):
+        pass
+
+    In another section of code, you would have something like:
+
+    userInput = raw_input()
+
+    if myHooks.HasHook(userInput):
+        myHooks[userInput].Fire(params={}, test={}) <-- This calls myFunction from another part of the program, without directly referencing the function.
+
+"""
 class Hook:
 
     def __init__(self, hookID, _regex=False):

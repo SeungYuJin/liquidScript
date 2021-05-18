@@ -3,7 +3,7 @@ from Hooks import Hooks, Hook
 """
     By default, as per:
 
-    RequiredAttrs = ['Author', 'Description', 'Hooks']
+    RequiredAttrs = ['Author', 'Description', 'eventHooks']
     RequiredFuncs = ['onLoad', 'onUnload']
 
     in ScriptManager.py, this is bare minimum, what a plugin
@@ -13,7 +13,7 @@ from Hooks import Hooks, Hook
 class MyFirstPlugin:
     Author = "Seung"
     Description = "Just a test plugin. Nothing Special!"
-    Hooks = Hooks() 
+    eventHooks = Hooks() 
     
     def __init__(self):
         pass
@@ -24,5 +24,8 @@ class MyFirstPlugin:
     def onUnload(self):
         print("Plugin Unloaded!")
 
-    def testFunc(self):
-        passx`
+    @eventHooks.Register("!help")
+    def testFunc(self, *args, **kwargs):
+        print("Called !help function.")
+        print("Parameter Keys: ", list(kwargs.keys()))
+        print("Parameter Values: ", list(kwargs.values()))

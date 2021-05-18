@@ -17,7 +17,7 @@ class ScriptManager:
 
         We can refactor this to use config files later.
     """
-    RequiredAttrs = ['Author', 'Description', 'Hooks']
+    RequiredAttrs = ['Author', 'Description', 'eventHooks']
     RequiredFuncs = ['onLoad', 'onUnload']
 
     """
@@ -70,7 +70,14 @@ class ScriptManager:
             print("Injected: {0} = {1} on {2}".format(newAttrName, attrValue, instance))
             setattr(instance, newAttrName, attrValue)
 
-
+    """
+        This is used to call a registered function FROM a remote module, using hooks.
+        Event is the event name to call within the plugin.
+    """
+    def _trigger_event(self, event, *args, **kwargs):
+        for scriptName in self.INSTANCES.keys():
+            self.INSTANCES[scriptName]._trigger_event(event, *args, **kwargs)
+        
     def _unLoadScript(self, scriptName):
         if self._isLoaded(scriptName):
             """

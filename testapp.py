@@ -25,6 +25,11 @@ if __name__ == "__main__":
         print(mgr.INSTANCES[test].INSTANCE.mystring)
 
         """
+            Fires the event !help, and passes arbitrary data in this case.
+        """
+        mgr._trigger_event("!help", data={ "Hello" : "World" }, testString="This is a test string.")
+
+        """
             Unloads the script and removes traces of it from sys.modules.
         """
         mgr._unLoadScript(test)
